@@ -1,0 +1,59 @@
+{% extends 'WInventory/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-10 col-12 mx-auto mt-5">
+        <h2>Inventory</h2>
+        {% if user.is_superuser %}
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'add_item' %}" class="btn btn-secondary">Add</a>
+            </div>
+        {% endif %}
+        
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Product SKU</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Supplier</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if items|length == 0 %}
+                <tr>
+                    <th scope="row">-</th>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                {% endif %}
+
+                {% for items in items %}
+                <tr>
+                    <th scope="row">{{ items.id }}</th>
+                    <td>{{ items.name }}</td>
+                    <td>{{ items.category }}</td>
+                    <td>{{ items.sku }}</td>
+                    <td>{{ items.quantity }}</td>
+                    <td>{{ items.location }}</td>
+                    <td>{{ items.supplier }}</td>
+                    <td><a href ="{% url 'edit_item' items.id %}" class="btn btn-outline-secondary">Edit</a></td>
+                    {% if user.is_superuser %}
+                        <td><a href ="{% url 'delete_item' items.id %}" class="btn btn-outline-secondary">Delete</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

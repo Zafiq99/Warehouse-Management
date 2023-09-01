@@ -1,0 +1,14 @@
+{% extends 'WInventory/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-11 col-md-4 mx-auto mt-5">
+            <div class="border-top pt-3">
+                <h2>You are logged out</h2>
+                <small class="text-muted">
+                    <a href="{% url 'login' %}">Log In again</a>
+                </small>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
